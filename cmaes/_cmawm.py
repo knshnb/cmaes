@@ -222,17 +222,9 @@ class CMAwM:
     def _repair_continuous_params(self, continuous_param: np.ndarray) -> np.ndarray:
         if self._continuous_space is None:
             return continuous_param
-
-        # clip with lower and upper bound.
-        param = np.where(
-            continuous_param < self._continuous_space[:, 0],
-            self._continuous_space[:, 0],
-            continuous_param,
+        return continuous_param.clip(
+            self._continuous_space[:, 0], self._continuous_space[:, 1]
         )
-        param = np.where(
-            param > self._continuous_space[:, 1], self._continuous_space[:, 1], param
-        )
-        return param
 
     def _encode_discrete_params(self, discrete_param: np.ndarray) -> np.ndarray:
         """Encode the values into discrete domain."""
