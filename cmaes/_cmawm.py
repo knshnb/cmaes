@@ -196,7 +196,7 @@ class CMAwM:
             x = self._cma._sample_solution()
             if self._is_continuous_feasible(x[self._continuous_idx]):
                 x_encoded = x.copy()
-                x_encoded[self._discrete_idx] = self._encoding_discrete_params(
+                x_encoded[self._discrete_idx] = self._encode_discrete_params(
                     x[self._discrete_idx]
                 )
                 return x_encoded, x
@@ -205,7 +205,7 @@ class CMAwM:
         x_encoded[self._continuous_idx] = self._repair_continuous_params(
             x[self._continuous_idx]
         )
-        x_encoded[self._discrete_idx] = self._encoding_discrete_params(
+        x_encoded[self._discrete_idx] = self._encode_discrete_params(
             x[self._discrete_idx]
         )
         return x_encoded, x
@@ -234,7 +234,7 @@ class CMAwM:
         )
         return param
 
-    def _encoding_discrete_params(self, discrete_param: np.ndarray) -> np.ndarray:
+    def _encode_discrete_params(self, discrete_param: np.ndarray) -> np.ndarray:
         """Encode the values into discrete domain."""
         mean = self._cma._mean
 
